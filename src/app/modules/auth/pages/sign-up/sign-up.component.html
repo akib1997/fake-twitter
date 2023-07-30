@@ -1,0 +1,84 @@
+<div class="dd">
+  <h2 class="text-3xl font-medium text-center mb-6">Sign Up</h2>
+  <form class="grid grid-cols- gap-4" [formGroup]="loginForm">
+    <mat-form-field class="dd">
+      <mat-label>Username</mat-label>
+      <input
+        matInput
+        formControlName="username"
+        type="email"
+        autocomplete="on"
+      />
+
+      <mat-error
+        *ngIf="
+          loginForm.controls['username'].hasError('username') &&
+          !loginForm.controls['username'].hasError('required')
+        "
+      >
+        Please enter a valid username
+      </mat-error>
+      <mat-error *ngIf="loginForm.controls['username'].hasError('required')">
+        Username is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="dd">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" type="email" />
+
+      <mat-error
+        *ngIf="
+          loginForm.controls['email'].hasError('email') &&
+          !loginForm.controls['email'].hasError('required')
+        "
+      >
+        Please enter a valid email address
+      </mat-error>
+      <mat-error *ngIf="loginForm.controls['email'].hasError('required')">
+        Email is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="dd">
+      <mat-label>Password</mat-label>
+      <input
+        matInput
+        formControlName="password"
+        type="password"
+        [type]="hide ? 'password' : 'text'"
+      />
+
+      <!-- Hide Show  -->
+      <button
+        mat-icon-button
+        matSuffix
+        (click)="hide = !hide"
+        [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="hide"
+      >
+        <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+      </button>
+      <!-- Hide Show  -->
+
+      <mat-error *ngIf="loginForm.controls['password'].hasError('required')">
+        Password is <strong>required</strong>
+      </mat-error>
+
+      <mat-error *ngIf="loginForm.controls['password'].hasError('minlength')">
+        Minimum length is 6
+      </mat-error>
+      <mat-error *ngIf="loginForm.controls['password'].hasError('maxlength')">
+        Maximum length is 8
+      </mat-error>
+    </mat-form-field>
+    <div class="flex items-center space-x-4">
+      <p>Already have Account?</p>
+      <a routerLink="/auth/login" class="font-medium text-blue-600">Login</a>
+    </div>
+
+    <button mat-raised-button color="primary" (click)="onSubmit()">
+      Login
+    </button>
+  </form>
+</div>

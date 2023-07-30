@@ -10,6 +10,7 @@ export class AuthComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    // console.log('auto com')
   }
 
 }
