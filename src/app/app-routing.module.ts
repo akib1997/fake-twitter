@@ -14,7 +14,7 @@ const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: 'exception/404',
+    redirectTo: '',
     pathMatch: 'full',
   },
 ];

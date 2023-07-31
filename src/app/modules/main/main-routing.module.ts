@@ -1,7 +1,32 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from '@app/guards/auth.guard';
+import { TimelineComponent } from './pages/timeline/timeline.component';
+import { TweetsComponent } from './pages/tweets/tweets.component';
+import { FollowersComponent } from './pages/followers/followers.component';
+import { MainComponent } from './main.component';
 
-const routes: Routes = [];
+const routes: Routes = [
+  {
+    path: '',
+    component: MainComponent,
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: '',
+        component: TimelineComponent
+      },
+      {
+        path: 'tweets',
+        component: TweetsComponent
+      },
+      {
+        path: 'followers',
+        component: FollowersComponent
+      }
+    ]
+  }
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

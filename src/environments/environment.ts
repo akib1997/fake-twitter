@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
   apiUrl: 'https://missingdata.pythonanywhere.com',
-  version: 'v1',
+  version: '',
 };
