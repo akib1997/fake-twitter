@@ -6,15 +6,15 @@ import { AuthService } from '../services/auth/auth.service';
 @Injectable({
   providedIn: 'root',
 })
-export class AuthGuard {
+export class AppGuard {
   constructor(private authService: AuthService, private router: Router) {}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     if (this.authService.isAuthenticated()) {
-      return true;
-    } else {
-      this.router.navigate(['/auth/login']);
+      this.router.navigate(['/']);
       return false;
+    } else {
+      return true;
     }
   }
 }

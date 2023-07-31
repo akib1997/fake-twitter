@@ -9,7 +9,8 @@ import { markAllControlsAsDirty } from '@utilities/markAllControlsAsDirty';
 import { ILogin } from '@models/login.model';
 import { AuthService } from '@services/auth/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
+import { NavigateService } from '@app/services/navigate/navigate.service';
+import { catchError, throwError } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -19,9 +20,14 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup<TLoginForm>;
   hide = true;
-  constructor(private fb: FormBuilder, private authService: AuthService,
+  loginError: string;
+
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private navigateService: NavigateService,
     private snackBar: MatSnackBar
-    ) {}
+  ) {}
 
   ngOnInit(): void {
     this.loginForm = this.fb.group<TLoginForm>({
@@ -37,21 +43,23 @@ export class LoginComponent implements OnInit {
   onSubmit(): void {
     if (this.loginForm.invalid) {
       markAllControlsAsDirty([this.loginForm]);
-      return
+      return;
     }
     const payload = this.loginForm.value as ILogin;
-    this.authService.login(payload).subscribe({
-      next: (success) => {
-        console.info(success, 'success')
+    this.authService.login(payload).subscribe((loggedIn: boolean) => {
+      console.log(loggedIn, 'loggedIn');
+      // debugger
+      if (loggedIn && !(loggedIn as any).error) {
         this.snackBar.open('Login successful!', 'Dismiss', {
-          duration: 3000, // Time in milliseconds the toast should stay visible
-          panelClass: ['success-toast'], // Add custom CSS class to style the toast
+          duration: 2000,
+          panelClass: ['success-toast'],
         });
-      },
-      error: (error) => {
-        console.error('Login error:', error.message);
+        this.navigateService.toApp();
+      } else {
+        this.loginError = (loggedIn as any)?.error;
+        console.log('Login failed.');
       }
-    })
+    });
   }
 }
 

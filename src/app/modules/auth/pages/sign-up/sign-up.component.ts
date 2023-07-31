@@ -5,22 +5,28 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { ILogin } from 'src/app/core/models/login.model';
+import { AuthService } from '@app/services/auth/auth.service';
+import { NavigateService } from '@app/services/navigate/navigate.service';
+import { markAllControlsAsDirty } from '@app/utilities/markAllControlsAsDirty';
+
 import { ISignUp } from 'src/app/core/models/sign-up.model';
 
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
-  styleUrls: ['./sign-up.component.css']
+  styleUrls: ['./sign-up.component.scss'],
 })
 export class SignUpComponent implements OnInit {
-
-  loginForm: FormGroup<TSignUpForm>;
+  signUpForm: FormGroup<TSignUpForm>;
   hide = true;
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private navigateService: NavigateService
+  ) {}
 
   ngOnInit(): void {
-    this.loginForm = this.fb.group<TSignUpForm>({
+    this.signUpForm = this.fb.group<TSignUpForm>({
       username: this.fb.control(null, [
         Validators.required,
         Validators.minLength(6),
@@ -36,10 +42,19 @@ export class SignUpComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.loginForm.valid) {
+    if (this.signUpForm.valid) {
+      markAllControlsAsDirty([this.signUpForm]);
+      return;
     }
-  }
 
+    const payload = this.signUpForm.value as ISignUp;
+    this.authService.signUp(payload).subscribe((res) => {
+      if (res) {
+        this.signUpForm.reset();
+        this.navigateService.toLogin();
+      }
+    });
+  }
 }
 
 type TSignUpForm = {

@@ -5,6 +5,7 @@ import { TimelineComponent } from './pages/timeline/timeline.component';
 import { TweetsComponent } from './pages/tweets/tweets.component';
 import { FollowersComponent } from './pages/followers/followers.component';
 import { MainComponent } from './main.component';
+import { FollowingUsersComponent } from './pages/following-users/following-users.component';
 
 const routes: Routes = [
   {
@@ -23,6 +24,10 @@ const routes: Routes = [
       {
         path: 'followers',
         component: FollowersComponent
+      },
+      {
+        path: 'followings',
+        component: FollowingUsersComponent
       }
     ]
   }

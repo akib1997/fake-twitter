@@ -1,8 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './core/guards/auth.guard';
+import { AppGuard } from '@app/guards/app.guard';
 
 const routes: Routes = [
+  {
+    path: '',
+    redirectTo: '',
+    pathMatch: 'full'
+  },
   {
     path: '',
     loadChildren: () => import('./modules/main/main.module').then(m => m.MainModule),
@@ -10,6 +16,7 @@ const routes: Routes = [
   },
   {
     path: 'auth',
+    canActivate: [AppGuard],
     loadChildren: () => import('./modules/auth/auth.module').then(m => m.AuthModule)
   },
   {

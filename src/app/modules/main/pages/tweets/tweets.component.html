@@ -1,3 +1,11 @@
-<p>
-  tweets works!
-</p>
+<div *ngIf="pageLoading" class="w-full h-full flex items-center justify-center">
+  <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+</div>
+
+<div *ngIf="!pageLoading" class="grid gap-4">
+  <ng-container *ngIf="tweets">
+    <ng-container *ngFor="let tweet of tweets">
+      <tweet-card [tweet]="tweet"></tweet-card>
+    </ng-container>
+  </ng-container>
+</div>

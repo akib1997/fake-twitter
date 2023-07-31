@@ -1,5 +1,10 @@
 <div class="dd">
   <h2 class="text-3xl font-medium text-center mb-6">Login</h2>
+
+
+  <mat-error *ngIf="loginError">
+    {{loginError}}
+  </mat-error>
   <form class="grid grid-cols- gap-4" [formGroup]="loginForm">
     <mat-form-field class="dd">
       <mat-label>Email</mat-label>

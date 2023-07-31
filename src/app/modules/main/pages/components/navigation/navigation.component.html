@@ -1,0 +1,37 @@
+<ul class="flex space-x-4 w-full justify-between">
+  <li>
+    <a
+      mat-raised-button
+      [routerLink]="['/']"
+      routerLinkActive="router-link-active"
+      #rla="routerLinkActive"
+      >
+      <mat-icon [color]="rla.isActive && 'warn'">history</mat-icon>
+      Timeline</a
+    >
+  </li>
+  <li>
+    <a
+      mat-raised-button
+      [routerLink]="['/tweets']"
+      routerLinkActive="router-link-active"
+      >tweets</a
+    >
+  </li>
+  <li>
+    <a
+      mat-raised-button
+      [routerLink]="['/followers']"
+      routerLinkActive="router-link-active"
+      >followers</a
+    >
+  </li>
+  <li>
+    <a
+      mat-raised-button
+      [routerLink]="['/followings']"
+      routerLinkActive="router-link-active"
+      >followings</a
+    >
+  </li>
+</ul>
