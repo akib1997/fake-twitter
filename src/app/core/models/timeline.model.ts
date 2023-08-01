@@ -1,4 +1,5 @@
-import { IPaginate } from "./common.model"
+import { IPaginate, } from "./common.model"
+import { IUser } from "./user.model"
 
 export interface ITimeline {
   content: string
@@ -7,12 +8,6 @@ export interface ITimeline {
   user: IUser
 }
 
-interface IUser {
-  active: boolean
-  email: string
-  id: number
-  username: string
-}
 
 
 export interface IPaginateTimeline extends IPaginate {

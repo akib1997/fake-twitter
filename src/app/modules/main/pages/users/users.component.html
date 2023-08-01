@@ -1,0 +1,13 @@
+<div *ngIf="pageLoading" class="w-full h-full flex items-center justify-center">
+  <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+</div>
+
+<div *ngIf="!pageLoading" class="grid gap-4">
+  <ng-container *ngIf="users">
+    <ng-container *ngFor="let user of users">
+      <!-- <tweet-card [tweet]="tweet"></tweet-card> -->
+      <user-card [user]="user"></user-card>
+    </ng-container>
+  </ng-container>
+</div>
+

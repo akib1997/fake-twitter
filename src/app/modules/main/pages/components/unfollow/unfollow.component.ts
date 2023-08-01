@@ -1,34 +1,33 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { IFolllowParams, IFollower, IUnFolllowParams } from '@app/models/follower.model';
+import { IFolllowParams, IUnFolllowParams } from '@app/models/follower.model';
 import { UserService } from '@app/services/user/user.service';
 
 @Component({
-  selector: 'follower-card',
-  templateUrl: './follower-card.component.html',
-  styleUrls: ['./follower-card.component.scss'],
+  standalone: true,
+  selector: 'unfollow',
+  templateUrl: './unfollow.component.html',
+  styleUrls: ['./unfollow.component.css'],
+  imports: [MatButtonModule]
 })
-export class FollowerCardComponent implements OnInit {
-  @Input({ required: true }) follower: IFollower;
-  isFollowed: boolean;
-
+export class UnfollowComponent {
+  isUnFollowed: boolean;
+  @Input({required: true}) userId: number;
   constructor(
     private userService: UserService,
     private snackBar: MatSnackBar
-  ) {}
+  ) { }
 
-  ngOnInit() {}
-
-
-
-  unFollow(userId: number) {
+  unfollowUser(userId: number) {
     const params: IUnFolllowParams = {user_id: userId}
     this.userService.unfollowUser(params).subscribe(res => {
-      this.isFollowed = true
+      this.isUnFollowed = true
       this.snackBar.open(res?.resp, 'Dismiss', {
         duration: 2000,
         panelClass: ['success-toast'],
       });
     })
   }
+
 }

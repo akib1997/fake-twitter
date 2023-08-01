@@ -25,6 +25,7 @@ export class FollowingUsersComponent implements OnInit {
       .subscribe({
         next: (data) => {
           this.followers = data.followings;
+          console.log(data.followings, 'd')
         },
         error: (error) => {
           console.warn(error);

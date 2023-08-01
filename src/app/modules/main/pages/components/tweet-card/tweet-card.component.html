@@ -1,13 +1,17 @@
-
 <div class="flex items-start space-x-3 shadow-xl rounded p-4 bg-white">
-  <div class="w-8 h-8 rounded-full bg-black inline-flex items-center justify-center">
-    <span class="font-medium text-lg uppercase text-white">{{ tweet.user.username.charAt(0) }}</span>
+  <div
+    class="w-8 h-8 rounded-full bg-black inline-flex items-center justify-center"
+  >
+    <span class="font-medium text-lg uppercase text-white">{{
+      tweet.user.username.charAt(0)
+    }}</span>
   </div>
   <div class="dfdfgfdg">
     <div class="inline-flex space-x-3 mb-2">
-      <p class="font-medium">{{tweet.user.username}} </p>
-      <p class="font-light">@{{tweet.user.username}} </p>
+      <p class="font-medium">{{ tweet.user.username }}</p>
+      <p class="font-light">@{{ tweet.user.username }}</p>
     </div>
-    <p>{{tweet.content}}</p>
+    <p>{{ tweet.content }}</p>
+    <unfollow [userId]="tweet.user.id"></unfollow>
   </div>
 </div>

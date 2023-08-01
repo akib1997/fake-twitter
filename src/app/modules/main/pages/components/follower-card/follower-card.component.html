@@ -1,14 +1,19 @@
 
-<div class="flex items-start space-x-3 shadow-xl rounded p-4 bg-white">
+<div class="flex items-start space-x-3 shadow-xl rounded p-4 bg-white w-full">
   <div class="w-8 h-8 rounded-full bg-black inline-flex items-center justify-center">
     <span class="font-medium text-lg uppercase text-white">{{ follower.username.charAt(0) }}</span>
   </div>
-  <div class="dfdfgfdg">
+  <div class="w-full">
     <div class="inline-flex space-x-3 mb-2">
-      <p class="font-medium">{{follower.username}} </p>
-      <p class="font-light">@{{follower.email}} </p>
+      <p class="font-medium">{{follower.username |  slice:0:20}} </p>
+      <p class="font-light">@{{follower.email | slice:0:20}} </p>
       <p class="font-light">{{follower.join_date | date}} </p>
     </div>
-    <p>{{follower.active}}</p>
+    <div class="flex justify-between items-center">
+      <p>{{follower.active}}</p>
+      <div class="d">
+        <follow [userId]="follower.id"></follow>
+      </div>
+    </div>
   </div>
 </div>

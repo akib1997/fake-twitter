@@ -11,3 +11,11 @@ export interface IFollower {
 export interface IPaginateFollower extends IPaginate {
   followers: IFollower[]
 }
+
+export interface IFolllowParams {
+  user_id: number
+}
+
+export interface IUnFolllowParams extends IFolllowParams {
+
+}

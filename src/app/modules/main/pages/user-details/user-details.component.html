@@ -1,0 +1,37 @@
+<h6 class="text-center text-lg font-medium my-3"> User Details </h6>
+
+<mat-tab-group mat-stretch-tabs="false" mat-align-tabs="center" (selectedTabChange)="tabChange($event)">
+  <mat-tab [label]="tabLabels.Tweets">
+    <ng-container *ngIf="tweets && tweets.length > 0; else emptyDataTemplate">
+      <div *ngFor="let tweet of tweets" class="grid gap-4">
+        <tweet-card [tweet]="tweet"></tweet-card>
+      </div>
+    </ng-container>
+  </mat-tab>
+
+  <mat-tab [label]="tabLabels.Followers">
+    <ng-container *ngIf="followers && followers.length > 0; else emptyDataTemplate">
+      <div *ngFor="let follower of followers" class="grid gap-4">
+        <follower-card [follower]="follower"></follower-card>
+      </div>
+    </ng-container>
+  </mat-tab>
+
+  <mat-tab [label]="tabLabels.Followings">
+    <ng-container *ngIf="!pageLoading">
+      <ng-container *ngIf="followings && followings.length > 0; else emptyDataTemplate">
+        <div *ngFor="let following of followings" class="grid gap-4">
+          <follower-card [follower]="following"></follower-card>
+        </div>
+      </ng-container>
+    </ng-container>
+  </mat-tab>
+</mat-tab-group>
+
+<ng-template #emptyDataTemplate>
+  <p class="text-center font-medium text-red-500">No data available.</p>
+</ng-template>
+
+<div *ngIf="pageLoading" class="w-full h-full flex items-center justify-center">
+  <mat-progress-spinner mode="indeterminate" [strokeWidth]="3"></mat-progress-spinner>
+</div>

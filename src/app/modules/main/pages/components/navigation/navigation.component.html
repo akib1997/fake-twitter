@@ -2,6 +2,7 @@
   <li>
     <a
       mat-raised-button
+      class="uppercase"
       [routerLink]="['/']"
       routerLinkActive="router-link-active"
       #rla="routerLinkActive"
@@ -13,6 +14,7 @@
   <li>
     <a
       mat-raised-button
+      class="uppercase"
       [routerLink]="['/tweets']"
       routerLinkActive="router-link-active"
       >tweets</a
@@ -21,6 +23,7 @@
   <li>
     <a
       mat-raised-button
+      class="uppercase"
       [routerLink]="['/followers']"
       routerLinkActive="router-link-active"
       >followers</a
@@ -29,9 +32,19 @@
   <li>
     <a
       mat-raised-button
+      class="uppercase"
       [routerLink]="['/followings']"
       routerLinkActive="router-link-active"
       >followings</a
+    >
+  </li>
+  <li>
+    <a
+      mat-raised-button
+      class="uppercase"
+      [routerLink]="['/users']"
+      routerLinkActive="router-link-active"
+      >users</a
     >
   </li>
 </ul>
