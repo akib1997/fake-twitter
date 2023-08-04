@@ -5,6 +5,9 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { JwtInterceptor } from '@app/interceptors/jwt.interceptor';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { LoadingInterceptor } from '@app/interceptors/loading.interceptor';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [AppComponent],
@@ -13,6 +16,8 @@ import { JwtInterceptor } from '@app/interceptors/jwt.interceptor';
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    MatSnackBarModule,
+    MatProgressSpinnerModule
   ],
   providers: [
     {
@@ -20,6 +25,7 @@ import { JwtInterceptor } from '@app/interceptors/jwt.interceptor';
       useClass: JwtInterceptor,
       multi: true,
     },
+    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
 })

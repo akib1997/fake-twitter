@@ -19,6 +19,10 @@ export class FollowerCardComponent implements OnInit {
 
   ngOnInit() {}
 
+  get isFollowerActive(): boolean {
+    return this.follower.active;
+  }
+
 
 
   unFollow(userId: number) {

@@ -5,18 +5,19 @@ import { UserService } from '@app/services/user/user.service';
 @Component({
   selector: 'user-card',
   templateUrl: './user-card.component.html',
-  styleUrls: ['./user-card.component.css']
+  styleUrls: ['./user-card.component.scss']
 })
-export class UserCardComponent implements OnInit {
+export class UserCardComponent {
 
   @Input({ required: true }) user: IUser;
-  isFollowed: boolean;
+  // isFollowed: boolean;
 
   constructor(
     private userService: UserService,
   ) {}
 
-  ngOnInit() {
+  get isUserActive(): boolean {
+    return this.user.active;
   }
 
 }

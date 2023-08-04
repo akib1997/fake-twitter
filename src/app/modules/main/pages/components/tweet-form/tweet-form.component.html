@@ -1,0 +1,37 @@
+<mat-card>
+  <h2 mat-dialog-title class="mb-4">Tweet</h2>
+  <mat-dialog-content>
+    <form [formGroup]="tweetForm">
+      <mat-form-field class="w-full">
+        <textarea
+          matInput
+          formControlName="content"
+          placeholder="Enter your tweet"
+          rows="5"
+        ></textarea>
+        <mat-error *ngIf="tweetForm.controls['content'].hasError('required')">
+          Field is <strong>required</strong>
+        </mat-error>
+        <mat-error *ngIf="tweetForm.controls['content'].hasError('minlength')">
+          Minimum 10 character is
+        </mat-error>
+        <mat-error *ngIf="tweetForm.controls['content'].hasError('maxlength')">
+          Maximum character is 160
+        </mat-error>
+      </mat-form-field>
+    </form>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-raised-button (click)="cancel()">Cancel</button>
+    <button
+
+      mat-raised-button
+      color="primary"
+      (click)="tweet()"
+      [disabled]="tweetForm.invalid"
+    >
+      Tweet
+    </button>
+  </mat-dialog-actions>
+</mat-card>

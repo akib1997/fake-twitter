@@ -1,6 +1,49 @@
-<main class="">
-  <div class="flex">
-    <app-navigation></app-navigation>
+<!-- <app-header></app-header> -->
+<main class="grid grid-cols-8 mx-10">
+  <!-- sidebar   -->
+  <div class="col-span-3">
+    <sidebar class="w-full block"></sidebar>
   </div>
-  <router-outlet></router-outlet>
+  <div class="col-span-4">
+    <div
+      class="border-l border-r border-gray-200 h-screen relative overscroll-x-none overflow-y-auto custom-scrollbarr"
+    >
+      <div
+        class="sticky z-10 backdrop-blur-md top-0 w-full bg-white bg-opacity-50 p-4"
+      >
+        <p class="text-lg font-medium text-gray-900">Page Title {{ title }}</p>
+      </div>
+      <div class="translate-y-0">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+  <!-- <div class="flex">
+    <app-navigation></app-navigation>
+  </div> -->
 </main>
+<!-- <div class="fixed right-5 bottom-5 z-20">
+  <tweet-button></tweet-button>
+</div> -->
+<!-- <mat-drawer-container class="example-container" [hasBackdrop]="hasBackdrop.value">
+  <mat-drawer #drawer [mode]="mode.value">I'm a drawer</mat-drawer>
+  <mat-drawer-content>
+    <mat-form-field>
+      <mat-label>Sidenav mode</mat-label>
+      <mat-select #mode value="side">
+        <mat-option value="side">Side</mat-option>
+        <mat-option value="over">Over</mat-option>
+        <mat-option value="push">Push</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Has backdrop</mat-label>
+      <mat-select #hasBackdrop>
+        <mat-option>Unset</mat-option>
+        <mat-option [value]="true">True</mat-option>
+        <mat-option [value]="false">False</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button mat-raised-button (click)="drawer.toggle()">Toggle drawer</button>
+  </mat-drawer-content>
+</mat-drawer-container> -->

@@ -1,15 +1,11 @@
-import { IPaginate, } from "./common.model"
-import { IUser } from "./user.model"
+import {  IPaginateParams, IPaginateResponse, } from "./common.model"
+import { ITweet } from "./tweet.model"
 
-export interface ITimeline {
-  content: string
-  id: number
-  published: string
-  user: IUser
-}
+export interface ITimeline extends ITweet {}
+
+export interface ITimelineParams extends IPaginateParams {}
 
 
-
-export interface IPaginateTimeline extends IPaginate {
+export interface IPaginateTimeline extends IPaginateResponse {
   timeline: ITimeline[]
 }

@@ -14,10 +14,16 @@ const routes: Routes = [
     path: '',
     component: MainComponent,
     canActivate: [AuthGuard],
+    data: {
+      title: 'Home',
+    },
     children: [
       {
         path: '',
         component: TimelineComponent,
+        data: {
+          title: 'Home',
+        },
       },
       {
         path: 'tweets',
@@ -26,14 +32,23 @@ const routes: Routes = [
       {
         path: 'followers',
         component: FollowersComponent,
+        data: {
+          title: 'followers',
+        },
       },
       {
         path: 'followings',
         component: FollowingUsersComponent,
+        data: {
+          title: 'followings',
+        },
       },
       {
         path: 'users',
         component: UsersComponent,
+        data: {
+          title: 'users',
+        },
       },
       {
         path: 'users/:id',

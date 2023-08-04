@@ -1,11 +1,54 @@
-<div *ngIf="pageLoading" class="w-full h-full flex items-center justify-center">
-  <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
-</div>
+<mat-tab-group
+  dynamicHeight
+  mat-stretch-tabs="false"
+  mat-align-tabs="center"
+  (selectedTabChange)="tabChange($event)"
+>
+  <mat-tab label="For You">
+    <div
+      class="grid gap- h-[calc(100vh-110px)] overflow-auto custom-scrollbar pt-4"
+      infiniteScroll
+      [infiniteScrollDistance]="2"
+      [infiniteScrollThrottle]="500"
+      (scrolled)="onScroll()"
+      [scrollWindow]="false"
+    >
+      <ng-container *ngForEmpty="let timeline of timelines; else: skeleton">
+        <tweet-card [tweet]="timeline"></tweet-card>
+      </ng-container>
+      <div
+        *ngIf="pageLoading"
+        class="w-full h-full flex items-center justify-center"
+      >
+        <mat-progress-spinner
+          mode="indeterminate"
+          strokeWidth="3"
+          diameter="50"
+          color="primary"
+        ></mat-progress-spinner>
+      </div>
+      <p
+        *ngIf="isEndOfList"
+        class="text-center capitalize font-medium text-gray-900 my-2"
+      >
+        You're end of tweets
+      </p>
+    </div>
+  </mat-tab>
+  <mat-tab label="Followings">
+    <ng-template matTabContent>
+      <following-users></following-users>
+    </ng-template>
+    <!-- <ng-container
+      *ngForEmpty="followings && followings.length > 0; else skeleton"
+    >
+      <div *ngFor="let following of followings" class="grid gap-4">
+        <follower-card [follower]="following"></follower-card>
+      </div>
+    </ng-container> -->
+  </mat-tab>
+</mat-tab-group>
 
-<div *ngIf="!pageLoading" class="grid gap-4">
-  <ng-container *ngIf="timelines">
-    <ng-container *ngFor="let timeline of timelines">
-      <tweet-card [tweet]="timeline"></tweet-card>
-    </ng-container>
-  </ng-container>
-</div>
+<ng-template #skeleton>
+  <skeleton></skeleton>
+</ng-template>

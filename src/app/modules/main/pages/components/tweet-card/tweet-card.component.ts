@@ -4,14 +4,16 @@ import { ITimeline } from '@models/timeline.model';
 @Component({
   selector: 'tweet-card',
   templateUrl: './tweet-card.component.html',
-  styleUrls: ['./tweet-card.component.scss']
+  styleUrls: ['./tweet-card.component.scss'],
 })
-export class TweetCardComponent implements OnInit {
-  @Input({required: true}) tweet: ITimeline;
+export class TweetCardComponent  {
+  @Input({ required: true }) tweet: ITimeline;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
+
+
+  get isUserActive(): boolean {
+    return this.tweet.user.active;
   }
-
 }

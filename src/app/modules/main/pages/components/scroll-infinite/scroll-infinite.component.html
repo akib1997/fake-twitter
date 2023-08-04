@@ -1,0 +1,10 @@
+<div class="grid gap-4 h-96 overflow-auto"
+      infiniteScroll
+      [infiniteScrollDistance]="2"
+      [infiniteScrollThrottle]="500"
+      (scrolled)="onScroll"
+      [scrollWindow]="false"
+      >
+      <ng-content></ng-content>
+
+      </div>

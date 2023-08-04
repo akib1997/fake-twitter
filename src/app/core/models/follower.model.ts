@@ -1,4 +1,4 @@
-import { IPaginate } from "./common.model";
+import { IPaginateResponse } from "./common.model";
 
 export interface IFollower {
   active: boolean;
@@ -8,7 +8,7 @@ export interface IFollower {
   username: string;
 }
 
-export interface IPaginateFollower extends IPaginate {
+export interface IPaginateFollower extends IPaginateResponse {
   followers: IFollower[]
 }
 

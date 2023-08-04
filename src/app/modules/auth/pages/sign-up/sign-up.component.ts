@@ -7,7 +7,10 @@ import {
 } from '@angular/forms';
 import { AuthService } from '@app/services/auth/auth.service';
 import { NavigateService } from '@app/services/navigate/navigate.service';
+import { SnackbarService } from '@app/services/snackbar/snackbar.service';
 import { markAllControlsAsDirty } from '@app/utilities/markAllControlsAsDirty';
+import { passwordValidator } from '@app/validators/password.validator';
+import { usernameValidator } from '@validators/username.validator';
 
 import { ISignUp } from 'src/app/core/models/sign-up.model';
 
@@ -19,41 +22,53 @@ import { ISignUp } from 'src/app/core/models/sign-up.model';
 export class SignUpComponent implements OnInit {
   signUpForm: FormGroup<TSignUpForm>;
   hide = true;
+  isSubmitting = false;
+
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private navigateService: NavigateService
+    private navigateService: NavigateService,
+    private snackbarService: SnackbarService
   ) {}
 
   ngOnInit(): void {
     this.signUpForm = this.fb.group<TSignUpForm>({
       username: this.fb.control(null, [
         Validators.required,
-        Validators.minLength(6),
-        Validators.maxLength(8),
+        // usernameValidator()
       ]),
       email: this.fb.control(null, [Validators.required, Validators.email]),
       password: this.fb.control(null, [
         Validators.required,
-        Validators.minLength(6),
-        Validators.maxLength(8),
+        // passwordValidator()
       ]),
     });
   }
 
   onSubmit(): void {
-    if (this.signUpForm.valid) {
+    if (this.signUpForm.invalid) {
       markAllControlsAsDirty([this.signUpForm]);
       return;
     }
 
     const payload = this.signUpForm.value as ISignUp;
-    this.authService.signUp(payload).subscribe((res) => {
-      if (res) {
-        this.signUpForm.reset();
-        this.navigateService.toLogin();
-      }
-    });
+    // console.log(payload, 'payload')
+    this.isSubmitting = true;
+    this.authService
+      .signUp(payload)
+      .subscribe(
+        (res) => {
+          console.log(res, 'res');
+          this.snackbarService.showSuccess('Signup successful ' + res?.message);
+          this.signUpForm.reset();
+          // this.navigateService.toLogin();
+        },
+        (err) => {
+          console.log(err, 'res');
+          this.snackbarService.showError('Signup failed: ' + err);
+        }
+      )
+      .add(() => (this.isSubmitting = false));
   }
 }
 

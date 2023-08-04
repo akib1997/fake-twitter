@@ -1,12 +1,33 @@
-<div *ngIf="pageLoading" class="w-full h-full flex items-center justify-center">
-  <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+<div
+  class="grid gap- h-[calc(100vh-110px)] overflow-y-auto overflow-x-hidden custom-scrollbar pt-4"
+  infiniteScroll
+  [infiniteScrollDistance]="2"
+  [infiniteScrollThrottle]="500"
+  (scrolled)="onScroll()"
+  [scrollWindow]="false"
+>
+  <ng-container *ngForEmpty="let following of followings; else: skeleton">
+    <follower-card [follower]="following"></follower-card>
+  </ng-container>
+  <div
+    *ngIf="pageLoading"
+    class="w-full h-full flex items-center justify-center"
+  >
+    <mat-progress-spinner
+      mode="indeterminate"
+      strokeWidth="3"
+      diameter="50"
+      color="primary"
+    ></mat-progress-spinner>
+  </div>
+  <p
+    *ngIf="isEndOfList"
+    class="text-center capitalize font-medium text-gray-900 my-2"
+  >
+    You're end of users
+  </p>
 </div>
 
-<div *ngIf="!pageLoading" class="grid gap-4">
-  <ng-container *ngIf="followers">
-    <ng-container *ngFor="let follower of followers">
-      <!-- <tweet-card [tweet]="tweet"></tweet-card> -->
-      <follower-card [follower]="follower"></follower-card>
-    </ng-container>
-  </ng-container>
-</div>
+<ng-template #skeleton>
+  <skeleton></skeleton>
+</ng-template>

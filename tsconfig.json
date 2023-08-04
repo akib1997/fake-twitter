@@ -23,10 +23,12 @@
     "lib": ["ES2022", "dom"],
     "paths": {
       "@app/*": ["src/app/core/*"],
+      "@config/*": ["src/app/configs/*"],
       "@shared/*": ["src/app/shared/*"],
       "@modules/*": ["src/app/modules/*"],
       "@core/*": ["src/app/core/*"],
       "@services/*": ["src/app/core/services/*"],
+      "@validators/*": ["src/app/core/validators/*"],
       "@models/*": ["src/app/core/models/*"],
       "@utilities/*": ["src/app/core/utilities/*"],
       "@env": ["src/environments/environment"]

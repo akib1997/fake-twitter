@@ -1,33 +1,39 @@
 <div class="dd">
-  <h2 class="text-3xl font-medium text-center mb-6">Sign Up</h2>
-  <form class="grid grid-cols- gap-4" [formGroup]="signUpForm">
-    <mat-form-field class="dd">
-      <mat-label>Username</mat-label>
+  <form class="grid gap-4" [formGroup]="signUpForm">
+    <mat-form-field class="w-full">
+      <mat-label>User Name</mat-label>
       <input
         matInput
         formControlName="username"
         type="email"
         autocomplete="on"
       />
-
-      <mat-error
-        *ngIf="
-          signUpForm.controls['username'].hasError('username') &&
-          !signUpForm.controls['username'].hasError('required')
-        "
-      >
-        Please enter a valid username
-      </mat-error>
-      <mat-error *ngIf="signUpForm.controls['username'].hasError('required')">
+      <mat-error class="text-sm" class="text-sm" *ngIf="signUpForm.controls['username'].hasError('required')">
         Username is <strong>required</strong>
+      </mat-error>
+      <mat-error class="text-sm" class="text-sm"
+        *ngIf="signUpForm.controls['username'].hasError('forbiddenWord')"
+      >
+        Usernames containing the words "Twitter" or "Admin" cannot be claimed.
+      </mat-error>
+      <mat-error class="text-sm" class="text-sm"
+        *ngIf="signUpForm.controls['username'].hasError('invalidLength')"
+      >
+        Your username cannot be longer than 15 characters or shorter than 4
+        characters.
+      </mat-error>
+      <mat-error class="text-sm" class="text-sm"
+        *ngIf="signUpForm.controls['username'].hasError('invalidCharacters')"
+      >
+        A username can only contain alphanumeric characters and underscores.
       </mat-error>
     </mat-form-field>
 
-    <mat-form-field class="dd">
+    <mat-form-field class="w-full">
       <mat-label>Email</mat-label>
       <input matInput formControlName="email" type="email" />
 
-      <mat-error
+      <mat-error class="text-sm"
         *ngIf="
           signUpForm.controls['email'].hasError('email') &&
           !signUpForm.controls['email'].hasError('required')
@@ -35,12 +41,12 @@
       >
         Please enter a valid email address
       </mat-error>
-      <mat-error *ngIf="signUpForm.controls['email'].hasError('required')">
+      <mat-error class="text-sm" *ngIf="signUpForm.controls['email'].hasError('required')">
         Email is <strong>required</strong>
       </mat-error>
     </mat-form-field>
 
-    <mat-form-field class="dd">
+    <mat-form-field class="w-full">
       <mat-label>Password</mat-label>
       <input
         matInput
@@ -61,15 +67,18 @@
       </button>
       <!-- Hide Show  -->
 
-      <mat-error *ngIf="signUpForm.controls['password'].hasError('required')">
-        Password is <strong>required</strong>
+      <mat-error class="text-sm" *ngIf="signUpForm.controls['password'].hasError('invalidLength')">
+        Password must be between 6 and 12 characters.
       </mat-error>
 
-      <mat-error *ngIf="signUpForm.controls['password'].hasError('minlength')">
-        Minimum length is 6
+      <mat-error class="text-sm" *ngIf="signUpForm.controls['password'].hasError('noUppercase')">
+        Password must contain at least 1 uppercase letter.
       </mat-error>
-      <mat-error *ngIf="signUpForm.controls['password'].hasError('maxlength')">
-        Maximum length is 8
+      <mat-error class="text-sm" *ngIf="signUpForm.controls['password'].hasError('noNumber')">
+        Password must contain at least 1 number.
+      </mat-error>
+      <mat-error class="text-sm" *ngIf="signUpForm.controls['password'].hasError('noSpecialChar')">
+        Password must contain at least 1 special character (!, @, #, *, +, _, -, and ?).
       </mat-error>
     </mat-form-field>
     <div class="flex items-center space-x-4">
@@ -77,8 +86,13 @@
       <a routerLink="/auth/login" class="font-medium text-blue-600">Login</a>
     </div>
 
-    <button mat-raised-button color="primary" (click)="onSubmit()">
-      Sign Up
+    <button mat-raised-button color="primary" (click)="onSubmit()" class="flex items-center">
+      <span  >Sign Up</span>
+      <!-- <ng-container *ngIf="!isSubmitting">
+        <mat-icon><mat-spinner color="accent" diameter="20">
+        </mat-spinner></mat-icon>
+      </ng-container> -->
+
     </button>
   </form>
 </div>

@@ -11,6 +11,7 @@ import { AuthService } from '@services/auth/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NavigateService } from '@app/services/navigate/navigate.service';
 import { catchError, throwError } from 'rxjs';
+import { SnackbarService } from '@app/services/snackbar/snackbar.service';
 
 @Component({
   selector: 'app-login',
@@ -21,12 +22,14 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup<TLoginForm>;
   hide = true;
   loginError: string;
+  isLoading= false
 
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
     private navigateService: NavigateService,
-    private snackBar: MatSnackBar
+    private snackbarService: SnackbarService
+
   ) {}
 
   ngOnInit(): void {
@@ -46,20 +49,17 @@ export class LoginComponent implements OnInit {
       return;
     }
     const payload = this.loginForm.value as ILogin;
+    this.isLoading = true
     this.authService.login(payload).subscribe((loggedIn: boolean) => {
-      console.log(loggedIn, 'loggedIn');
-      // debugger
       if (loggedIn && !(loggedIn as any).error) {
-        this.snackBar.open('Login successful!', 'Dismiss', {
-          duration: 2000,
-          panelClass: ['success-toast'],
-        });
+        this.snackbarService.showSuccess('Login successful!');
         this.navigateService.toApp();
       } else {
         this.loginError = (loggedIn as any)?.error;
-        console.log('Login failed.');
+        this.snackbarService.showError(this.loginError);
+        console.log('Login failed.', this.loginError);
       }
-    });
+    }).add(() => this.isLoading = false);
   }
 }
 

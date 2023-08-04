@@ -24,35 +24,35 @@ export class JwtInterceptor implements HttpInterceptor {
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
-    const authToken = this.authService.getToken();
-    // debugger;
-    if (this.authService.isAuthenticated()) {
-      request.clone({
-        setHeaders: { 'X-Jwt-Token': `Bearer ${authToken}` },
-      })
-    } else {
-      this.navigateService.toLogin();
-      throwError(() => 'Not authenticated');
+    if (this.isExcludedUrl(request.url)) {
+      return next.handle(request);
     }
 
-    // console.log(request.headers, 'hea')
+    const authToken = this.authService.getToken();
+
+    // if (this.authService.isAuthenticated()) {
+    //   request.clone({
+    //     setHeaders: { 'X-Jwt-Token': `Bearer ${authToken}` },
+    //   });
+    // } else {
+    //   this.navigateService.toLogin();
+    //   throwError(() => 'Not authenticated');
+    // }
+
     request = request.clone({
       setHeaders: { 'X-Jwt-Token': `Bearer ${authToken}` },
     });
-    // console.log(request.headers, 'hea')
 
     return next.handle(request).pipe(
       map((response) => {
         let isError = (response as any)?.body?.error;
-        console.log(response, 'response')
-        if(isError) {
+        console.log(response, 'response');
+        if (isError) {
           this.authService.removeToken();
           this.navigateService.toLogin();
-          return null as any
+          return null as any;
         }
-        // console.log(isError, 'isError')
-        // console.log(response, 'response')
-        return response
+        return response;
       }),
       catchError((error: HttpErrorResponse) => {
         if (error.status === 401) {
@@ -61,5 +61,14 @@ export class JwtInterceptor implements HttpInterceptor {
         return throwError(() => error);
       })
     );
+  }
+
+  private isExcludedUrl(url: string): boolean {
+    const excludedUrls: string[] = [
+      'https://missingdata.pythonanywhere.com/signup',
+      'https://missingdata.pythonanywhere.com/login',
+    ];
+
+    return excludedUrls.some((excludedUrl) => url.includes(excludedUrl));
   }
 }

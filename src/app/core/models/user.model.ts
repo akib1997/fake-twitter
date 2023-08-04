@@ -1,24 +1,26 @@
-import { IBaseUser, IPaginate } from "./common.model"
+import { IBaseUser, IPaginateResponse } from "./common.model"
 import { IFollower } from "./follower.model"
 import { ITweet } from "./tweet.model"
 
 export interface IUser extends IBaseUser {
-
 }
 
-export interface IPaginateUser extends IPaginate {
+export interface IPaginateUser extends IPaginateResponse {
   users: IUser[]
 }
 
-export interface IPaginateUserTweets extends IPaginate {
+export interface IPaginateUserTweets extends IPaginateResponse {
   tweets: ITweet[]
 }
 
-export interface IPaginateUserFollowers extends IPaginate {
+export interface IPaginateUserFollowers extends IPaginateResponse {
   followers: IFollower[]
 }
 
-export interface IPaginateUserFollowings extends IPaginate {
+export interface IPaginateUserFollowings extends IPaginateResponse {
   followings: IFollower[]
 }
 
+export interface ITeweetRequest {
+  content: string
+}

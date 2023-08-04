@@ -1,15 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { IFollowing } from '@app/models/following.model';
-import { FollowingsService } from '@app/services/followings/followings.service';
+import { IFollowing, IFollowingParams } from '@app/models/following.model';
+import { FollowingsService } from '@modules/main/pages/services/followings/followings.service';
 
 @Component({
-  selector: 'app-following-users',
+  selector: 'following-users',
   templateUrl: './following-users.component.html',
-  styleUrls: ['./following-users.component.scss']
+  styleUrls: ['./following-users.component.scss'],
 })
 export class FollowingUsersComponent implements OnInit {
   pageLoading = false;
-  followers: IFollowing[];
+  followings: IFollowing[] =[];
+  params: IFollowingParams = {
+    page: 1,
+    size: 20,
+  };
+  totalTweets = 0;
+  isEndOfList: boolean = false;
 
   constructor(private followingService: FollowingsService) {}
 
@@ -17,15 +23,26 @@ export class FollowingUsersComponent implements OnInit {
     this.getFollowingUsers();
   }
 
+  onScroll = () => {
+    this.moreData();
+  };
+
+  moreData(): void {
+    if (this.isEndOfList) return;
+    this.params.page++;
+    this.params.size = this.params.size + 20;
+    this.getFollowingUsers();
+  }
+
   getFollowingUsers(): void {
     this.pageLoading = true;
 
     this.followingService
-      .getFollowingUsers()
+      .getFollowingUsers(this.params)
       .subscribe({
-        next: (data) => {
-          this.followers = data.followings;
-          console.log(data.followings, 'd')
+        next: ({ followings, count }) => {
+          this.isEndOfList = count === 0;
+          this.followings =[...this.followings, ...followings];
         },
         error: (error) => {
           console.warn(error);
@@ -33,5 +50,4 @@ export class FollowingUsersComponent implements OnInit {
       })
       .add(() => (this.pageLoading = false));
   }
-
 }

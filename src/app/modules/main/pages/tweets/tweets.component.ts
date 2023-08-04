@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ITweet } from '@app/models/tweet.model';
-import { TweetService } from '@app/services/tweet/tweet.service';
+import { ITweet, ITweetParams } from '@app/models/tweet.model';
+import { TweetService } from '@modules/main/pages/services/tweet/tweet.service';
 
 @Component({
   selector: 'app-tweets',
@@ -9,7 +9,13 @@ import { TweetService } from '@app/services/tweet/tweet.service';
 })
 export class TweetsComponent implements OnInit {
   pageLoading = false;
-  tweets: ITweet[];
+  tweets: ITweet[] = [];
+  params: ITweetParams = {
+    page: 1,
+    size: 20,
+  };
+  totalTweets = 0;
+  isEndOfList: boolean = false;
 
   constructor(private tweetService: TweetService) {}
 
@@ -17,14 +23,26 @@ export class TweetsComponent implements OnInit {
     this.getTweets();
   }
 
+  onScroll = () => {
+    this.moreTweet();
+  };
+
+  moreTweet(): void {
+    if (this.isEndOfList) return;
+    this.params.page++
+    this.params.size = this.params.size + 20
+    this.getTweets();
+  }
+
   getTweets(): void {
     this.pageLoading = true;
 
     this.tweetService
-      .getTweets()
+      .getTweets(this.params)
       .subscribe({
-        next: (data) => {
-          this.tweets = data.my_tweets;
+        next: ({my_tweets, count}) => {
+          this.isEndOfList = count === 0;
+          this.tweets = [...this.tweets, ...my_tweets];
         },
         error: (error) => {
           console.warn(error);

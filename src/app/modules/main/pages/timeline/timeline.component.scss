@@ -1,0 +1,9 @@
+:host ::ng-deep mat-tab-header {
+  // top: 3rem;
+  // z-index: 10;
+  // backdrop-filter: blur(12px);
+  // position: sticky;
+  // position: -webkit-sticky; /* macOS/iOS Safari */
+
+  @apply sticky z-10 backdrop-blur-md top-16 w-full bg-white bg-opacity-50 border-b border-gray-200
+}

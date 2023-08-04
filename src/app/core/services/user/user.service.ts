@@ -1,7 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { IFollowResponse, IUnFollowResponse } from '@app/models/common.model';
 import { IFolllowParams, IUnFolllowParams } from '@app/models/follower.model';
-import { IPaginateUser, IPaginateUserFollowers, IPaginateUserFollowings, IPaginateUserTweets } from '@app/models/user.model';
+import {
+  IPaginateUser,
+  IPaginateUserFollowers,
+  IPaginateUserFollowings,
+  IPaginateUserTweets,
+} from '@app/models/user.model';
+import { apiConfig } from '@config/api.config';
 import { environment } from '@env';
 import { Observable } from 'rxjs';
 
@@ -16,29 +23,43 @@ export class UserService {
   constructor(private http: HttpClient) {}
 
   getUsers(): Observable<IPaginateUser> {
-    return this.http.get<IPaginateUser>(`${this.apiUrl}/users`);
+    const endpoint = 'users';
+    const apiUrl = apiConfig(endpoint);
+    return this.http.get<IPaginateUser>(apiUrl);
   }
 
   getTweets(id: number): Observable<IPaginateUserTweets> {
-    return this.http.get<IPaginateUserTweets>(`${this.apiUrl}/users/${id}/tweets`);
+    const endpoint = 'users';
+    const apiUrl = apiConfig(endpoint);
+    return this.http.get<IPaginateUserTweets>(`${apiUrl}/${id}/tweets`);
   }
 
   getFollowers(id: number): Observable<IPaginateUserFollowers> {
-    return this.http.get<IPaginateUserFollowers>(`${this.apiUrl}/users/${id}/followers`);
+    const endpoint = 'users';
+    const apiUrl = apiConfig(endpoint);
+
+    return this.http.get<IPaginateUserFollowers>(`${apiUrl}/${id}/followers`);
   }
 
   getFollowings(id: number): Observable<IPaginateUserFollowings> {
-    return this.http.get<IPaginateUserFollowings>(`${this.apiUrl}/users/${id}/following`);
+    const endpoint = 'users';
+    const apiUrl = apiConfig(endpoint);
+    return this.http.get<IPaginateUserFollowings>(`${apiUrl}/${id}/following`);
   }
 
-  followUser(params: IFolllowParams): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/follow`, {
+  followUser(params: IFolllowParams): Observable<IFollowResponse> {
+    const endpoint = 'follow';
+    const apiUrl = apiConfig(endpoint);
+
+    return this.http.post<any>(apiUrl, {
       user_id: params.user_id,
     });
   }
 
-  unfollowUser(params: IUnFolllowParams): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/unfollow`, {
+  unfollowUser(params: IUnFolllowParams): Observable<IUnFollowResponse> {
+    const endpoint = 'unfollow';
+    const apiUrl = apiConfig(endpoint);
+    return this.http.post<any>(apiUrl, {
       user_id: params.user_id,
     });
   }

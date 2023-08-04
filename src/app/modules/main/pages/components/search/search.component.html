@@ -1,0 +1,44 @@
+<div class="relative max-w-lg w-full mx-auto">
+  <mat-form-field class="w-full">
+    <mat-label>Search User</mat-label>
+    <input
+      matInput
+      type="text"
+      [(ngModel)]="searchTerm"
+      (input)="search()"
+      (focus)="onInputFocus()"
+      (blur)="onInputBlur()"
+      placeholder="Enter your search term"
+    />
+    <button
+      *ngIf="searchTerm"
+      matSuffix
+      mat-icon-button
+      aria-label="Clear"
+      (click)="searchTerm = ''"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
+
+  <mat-card
+    [@fadeInOut]
+    *ngIf="showResults"
+    class="!absolute top-20 z-10 w-full overflow-x-visible overflow-y-auto max-h-[25rem]"
+  >
+    <mat-card-content>
+      <ng-container *ngIf="searchResults.length > 0; else template">
+        <h6 class="text-lg mb-3 text-center">Found {{searchResults.length}} users!</h6>
+        <div class="grid gap-4" *ngFor="let result of searchResults">
+          <user-card [user]="result"></user-card>
+        </div>
+      </ng-container>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<ng-template #template>
+  <p class="text-center font-medium text-gray-600">
+    Try searching for people, topics, or keywords.
+  </p>
+</ng-template>

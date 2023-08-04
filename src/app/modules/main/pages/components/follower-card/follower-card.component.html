@@ -1,4 +1,4 @@
-
+<!--
 <div class="flex items-start space-x-3 shadow-xl rounded p-4 bg-white w-full">
   <div class="w-8 h-8 rounded-full bg-black inline-flex items-center justify-center">
     <span class="font-medium text-lg uppercase text-white">{{ follower.username.charAt(0) }}</span>
@@ -14,6 +14,31 @@
       <div class="d">
         <follow [userId]="follower.id"></follow>
       </div>
+    </div>
+  </div>
+</div> -->
+
+<div
+  class="flex items-start p-3 bg-white border-b border-gray-200"
+  [ngClass]="isFollowerActive ? '' : 'pointer-events-none opacity-50'"
+>
+  <div
+    class="basis-1/12 mr-3"
+  >
+   <a [routerLink]="['/users/', follower.id]">
+    <avatar [userName]="follower.username"></avatar>
+   </a>
+  </div>
+  <div class="basis-11/12">
+    <div class="inline-flex space-x-3 mb-2 items-center">
+      <p class="font-medium capitalize">{{ follower.username }}</p>
+      <div class="inline-flex space-x-1 items-center">
+        <p class="font-medium">@{{ follower.email  }}</p>
+        <span class="w-2.5 h-2.5 rounded-full" [ngClass]="isFollowerActive ? 'bg-green-600' : 'bg-gray-300'"></span>
+      </div>
+    </div>
+    <div class="py-1">
+      <p class="font-light">Joined on: {{follower.join_date | date}} </p>
     </div>
   </div>
 </div>

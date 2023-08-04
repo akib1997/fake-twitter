@@ -1,17 +1,28 @@
-<div class="flex items-start space-x-3 shadow-xl rounded p-4 bg-white">
+<div
+  class="flex items-start p-3 bg-white border-b border-gray-200"
+  [ngClass]="isUserActive ? '' : 'pointer-events-none opacity-50'"
+>
   <div
-    class="w-8 h-8 rounded-full bg-black inline-flex items-center justify-center"
+    class="basis-1/12 mr-3"
   >
-    <span class="font-medium text-lg uppercase text-white">{{
-      tweet.user.username.charAt(0)
-    }}</span>
+   <a [routerLink]="['/users/', tweet.user.id]">
+    <avatar [userName]="tweet.user.username"></avatar>
+   </a>
   </div>
-  <div class="dfdfgfdg">
-    <div class="inline-flex space-x-3 mb-2">
-      <p class="font-medium">{{ tweet.user.username }}</p>
-      <p class="font-light">@{{ tweet.user.username }}</p>
+  <div class="basis-11/12">
+    <div class="inline-flex space-x-3 mb-2 items-center">
+      <p class="font-medium capitalize">{{ tweet.user.username }}</p>
+      <div class="inline-flex space-x-1 items-center">
+        <p class="font-medium">@{{ tweet.user.email | cutAfterAt }}</p>
+        <span class="w-2.5 h-2.5 rounded-full" [ngClass]="isUserActive ? 'bg-green-600' : 'bg-gray-300'"></span>
+      </div>
+      <p class="font-light text-xs">{{ tweet.published | tweetTime }}</p>
     </div>
-    <p>{{ tweet.content }}</p>
-    <unfollow [userId]="tweet.user.id"></unfollow>
+    <div class="content py-1">
+      <p class="max-tweet-content- mb-">
+        {{ tweet.content | slice : 0 : 120 }}...
+      </p>
+      <!-- <unfollow [userId]="tweet.user.id"></unfollow> -->
+    </div>
   </div>
 </div>

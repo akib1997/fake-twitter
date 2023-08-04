@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-main',
@@ -6,11 +7,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./main.component.scss']
 })
 export class MainComponent implements OnInit {
-
-  constructor() { }
+  title: string;
+  constructor(
+    private route:ActivatedRoute,
+  ) { }
 
   ngOnInit() {
-    console.log('main c')
+    this.title = this.route.snapshot.data['title']
+    // console.log(this.route.snapshot.data, 'dddd')
   }
 
 }

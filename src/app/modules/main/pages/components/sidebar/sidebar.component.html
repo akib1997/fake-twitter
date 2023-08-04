@@ -1,0 +1,86 @@
+<div class="flex flex-col justify-between h-screen py-4">
+  <ul class="flex flex-col space-y-6 w-full">
+    <li class="listt">
+      <a
+        class="inline-block"
+        [routerLink]="['/']"
+        routerLinkActive="font-medium"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        <img src="/assets/twitter-x.svg" alt="twitter-x.svg" class="w-10"
+      /></a>
+    </li>
+    <li class="listt">
+      <a
+        class="inline-flex text-2xl space-x-3 items-center capitalize"
+        [routerLink]="['/']"
+        routerLinkActive="font-medium"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        <mat-icon class="fsfadfadgfd">timeline</mat-icon>
+        <span>Timeline</span>
+      </a>
+    </li>
+    <li class="listt">
+      <a
+        class="inline-flex text-2xl space-x-3 items-center capitalize"
+        [routerLink]="['/tweets']"
+        routerLinkActive="font-medium"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        <mat-icon class="fsfadfadgfd">launch</mat-icon>
+        <span>tweets</span>
+      </a>
+    </li>
+    <li class="listt">
+      <a
+        class="inline-flex text-2xl space-x-3 items-center capitalize"
+        [routerLink]="['/followers']"
+        routerLinkActive="font-medium"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        <mat-icon class="fsfadfadgfd">playlist_add</mat-icon>
+        <span>followers</span>
+      </a>
+    </li>
+    <li class="listt">
+      <a
+        class="inline-flex text-2xl space-x-3 items-center capitalize"
+        [routerLink]="['/followings']"
+        routerLinkActive="font-medium"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        <mat-icon class="fsfadfadgfd">playlist_add_check</mat-icon>
+        <span>followings</span>
+      </a>
+    </li>
+    <li class="listt">
+      <a
+        class="inline-flex text-2xl space-x-3 items-center capitalize"
+        [routerLink]="['/users']"
+        routerLinkActive="font-medium"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        <mat-icon class="fsfadfadgfd">supervised_user_circle</mat-icon>
+        <span>users</span>
+      </a>
+    </li>
+  </ul>
+
+  <div class="fl">
+    <button [matMenuTriggerFor]="aboveMenu" class="">
+      <div class="flex justify-between items-center p-3">
+        <avatar [userName]="userEmail"></avatar>
+        <div class="text-left ml-2 mr-4">
+          <p>{{ userEmail | cutAfterAt }}</p>
+          <p>{{ userEmail}}</p>
+        </div>
+        <mat-icon>more_horiz</mat-icon>
+      </div>
+    </button>
+    <mat-menu #aboveMenu="matMenu" yPosition="above">
+      <button mat-menu-item disabled>Add another account</button>
+      <button mat-menu-item (click)="logout()">Logout</button>
+    </mat-menu>
+  </div>
+</div>

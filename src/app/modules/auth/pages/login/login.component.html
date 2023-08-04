@@ -1,12 +1,9 @@
-<div class="dd">
-  <h2 class="text-3xl font-medium text-center mb-6">Login</h2>
-
-
-  <mat-error *ngIf="loginError">
-    {{loginError}}
+<div>
+  <mat-error *ngIf="loginError" class="text-lg text-center mb-3">
+    {{ loginError }}
   </mat-error>
-  <form class="grid grid-cols- gap-4" [formGroup]="loginForm">
-    <mat-form-field class="dd">
+  <form class="grid gap-4" [formGroup]="loginForm">
+    <mat-form-field class="w-full">
       <mat-label>Email</mat-label>
       <input matInput formControlName="email" type="email" />
 
@@ -23,7 +20,7 @@
       </mat-error>
     </mat-form-field>
 
-    <mat-form-field class="dd">
+    <mat-form-field class="w-full">
       <mat-label>Password</mat-label>
       <input
         matInput
@@ -67,4 +64,11 @@
       Login
     </button>
   </form>
+</div>
+
+<div
+  *ngIf="isLoading"
+  class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2"
+>
+  <mat-progress-spinner mode="indeterminate" color="primary"> </mat-progress-spinner>
 </div>
