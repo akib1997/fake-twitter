@@ -1,27 +1,45 @@
 import { Component, OnInit } from '@angular/core';
-import { IUser } from '@app/models/user.model';
-import { UserService } from '@app/services/user/user.service';
+import { IUser, IUsersParams } from '@app/models/user.model';
+import { UserService } from '@modules/main/pages/services/user/user.service';
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
-  styleUrls: ['./users.component.css'],
+  styleUrls: ['./users.component.scss'],
 })
 export class UsersComponent implements OnInit {
   pageLoading = false;
-  users: IUser[];
+  users: IUser[] = [];
+  params: IUsersParams = {
+    page: 1,
+    size: 20,
+  };
+  totalTweets = 0;
+  isEndOfList: boolean = false;
+
   constructor(private userServices: UserService) {}
 
   ngOnInit() {
-    this.getUsre()
+    this.getUsers();
   }
 
-  getUsre(): void {
+  onScroll = () => {
+    this.more();
+  };
+
+  more(): void {
+    if (this.isEndOfList) return;
+    this.params.page++;
+    this.getUsers();
+  }
+
+  getUsers(): void {
     this.pageLoading = true;
     this.userServices
-      .getUsers()
-      .subscribe((res) => {
-        this.users = res.users;
+      .getUsers(this.params)
+      .subscribe(({ users, count }) => {
+        this.isEndOfList = count === 0;
+        this.users = [...this.users, ...users];
       })
       .add(() => (this.pageLoading = false));
   }

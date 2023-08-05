@@ -1,10 +1,13 @@
-<div class="page">
-  <div class="grid grid-cols-1 h-screen">
-    <!-- <div class="left bg-blue-200"></div> -->
+<div class="page" >
+  <div class="grid md:grid-cols-2 h-screen">
+    <div class="hidden md:block relative">
+      <!-- <img src="./assets/bg.png" alt="Twitter bg" class="absolute inset-0 object-cover w-full h-full"> -->
+      <img src="./assets/twitter-x.svg" alt="twitter" loading="lazy" class="absolute inset-0 object-cover w-40 h-40 m-auto">
+    </div>
     <div class="left bg-white flex items-center justify-start p-10">
       <div class="max-w-md w-full mx-autoo">
         <div class="flex mb-6 space-x-3 items-center justify-center">
-          <img src="/assets/twitter-x.svg" alt="twitter-x" loading="lazy" class="w-16">
+          <img src="/assets/twitter-x.svg" alt="twitter-x" loading="lazy" class="block md:hidden w-16">
           <h6 class="text-3xl font-medium text-center">Join Twitter</h6>
         </div>
         <router-outlet></router-outlet>

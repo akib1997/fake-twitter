@@ -5,7 +5,7 @@ import { TweetFormComponent } from '../tweet-form/tweet-form.component';
 @Component({
   selector: 'tweet-button',
   templateUrl: './tweet-button.component.html',
-  styleUrls: ['./tweet-button.component.css']
+  styleUrls: ['./tweet-button.component.scss']
 })
 export class TweetButtonComponent {
 

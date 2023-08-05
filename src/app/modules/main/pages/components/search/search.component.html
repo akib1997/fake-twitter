@@ -1,14 +1,13 @@
-<div class="relative max-w-lg w-full mx-auto">
-  <mat-form-field class="w-full">
+<div class="relative max-w-sm w-full mx-4">
+  <mat-form-field class="w-full p-4">
     <mat-label>Search User</mat-label>
     <input
       matInput
       type="text"
-      [(ngModel)]="searchTerm"
-      (input)="search()"
+      (input)="onSearch($event.target?.value)"
       (focus)="onInputFocus()"
       (blur)="onInputBlur()"
-      placeholder="Enter your search term"
+      placeholder="Enter user name"
     />
     <button
       *ngIf="searchTerm"
@@ -20,25 +19,26 @@
       <mat-icon>close</mat-icon>
     </button>
   </mat-form-field>
-
-  <mat-card
+  <ng-container *ngIf="loading">
+    <skeleton></skeleton>
+  </ng-container>
+  <h6 *ngIf="searchResults.length > 0" class="text-lg mb-3 text-center">
+    Found {{ searchResults.length }} users!
+  </h6>
+  <div
     [@fadeInOut]
-    *ngIf="showResults"
-    class="!absolute top-20 z-10 w-full overflow-x-visible overflow-y-auto max-h-[25rem]"
+    class="max-h-[calc(100vh-150px)] overflow-y-auto overflow-x-hidden custom-scrollbar"
   >
-    <mat-card-content>
-      <ng-container *ngIf="searchResults.length > 0; else template">
-        <h6 class="text-lg mb-3 text-center">Found {{searchResults.length}} users!</h6>
-        <div class="grid gap-4" *ngFor="let result of searchResults">
-          <user-card [user]="result"></user-card>
-        </div>
-      </ng-container>
-    </mat-card-content>
-  </mat-card>
+    <ng-container *ngForEmpty="let result of searchResults; else: template">
+      <user-card [user]="result"></user-card>
+    </ng-container>
+  </div>
 </div>
 
 <ng-template #template>
-  <p class="text-center font-medium text-gray-600">
-    Try searching for people, topics, or keywords.
-  </p>
+  <p class="text-center font-medium text-gray-600">Try searching for people</p>
+</ng-template>
+
+<ng-template #skeleton>
+  <skeleton></skeleton>
 </ng-template>

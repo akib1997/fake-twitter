@@ -1,26 +1,19 @@
 <!-- <app-header></app-header> -->
 <main class="grid grid-cols-8 mx-10">
   <!-- sidebar   -->
-  <div class="col-span-3">
+  <div class="col-span-2">
     <sidebar class="w-full block"></sidebar>
   </div>
-  <div class="col-span-4">
+  <div class="col-span-3">
     <div
       class="border-l border-r border-gray-200 h-screen relative overscroll-x-none overflow-y-auto custom-scrollbarr"
     >
-      <div
-        class="sticky z-10 backdrop-blur-md top-0 w-full bg-white bg-opacity-50 p-4"
-      >
-        <p class="text-lg font-medium text-gray-900">Page Title {{ title }}</p>
-      </div>
-      <div class="translate-y-0">
-        <router-outlet></router-outlet>
-      </div>
+    <router-outlet></router-outlet>
     </div>
   </div>
-  <!-- <div class="flex">
-    <app-navigation></app-navigation>
-  </div> -->
+  <div class="search col-span-3">
+    <search></search>
+  </div>
 </main>
 <!-- <div class="fixed right-5 bottom-5 z-20">
   <tweet-button></tweet-button>

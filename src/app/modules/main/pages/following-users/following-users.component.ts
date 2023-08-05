@@ -30,7 +30,6 @@ export class FollowingUsersComponent implements OnInit {
   moreData(): void {
     if (this.isEndOfList) return;
     this.params.page++;
-    this.params.size = this.params.size + 20;
     this.getFollowingUsers();
   }
 

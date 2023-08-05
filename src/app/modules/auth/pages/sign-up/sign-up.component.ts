@@ -8,6 +8,7 @@ import {
 import { AuthService } from '@app/services/auth/auth.service';
 import { NavigateService } from '@app/services/navigate/navigate.service';
 import { SnackbarService } from '@app/services/snackbar/snackbar.service';
+import { SpinnerService } from '@app/services/spinner/spinner.service';
 import { markAllControlsAsDirty } from '@app/utilities/markAllControlsAsDirty';
 import { passwordValidator } from '@app/validators/password.validator';
 import { usernameValidator } from '@validators/username.validator';
@@ -28,19 +29,20 @@ export class SignUpComponent implements OnInit {
     private fb: FormBuilder,
     private authService: AuthService,
     private navigateService: NavigateService,
-    private snackbarService: SnackbarService
+    private snackbarService: SnackbarService,
+    private spinnerService: SpinnerService
   ) {}
 
   ngOnInit(): void {
     this.signUpForm = this.fb.group<TSignUpForm>({
       username: this.fb.control(null, [
         Validators.required,
-        // usernameValidator()
+        usernameValidator()
       ]),
       email: this.fb.control(null, [Validators.required, Validators.email]),
       password: this.fb.control(null, [
         Validators.required,
-        // passwordValidator()
+        passwordValidator()
       ]),
     });
   }
@@ -54,21 +56,25 @@ export class SignUpComponent implements OnInit {
     const payload = this.signUpForm.value as ISignUp;
     // console.log(payload, 'payload')
     this.isSubmitting = true;
+    this.spinnerService.show();
     this.authService
       .signUp(payload)
-      .subscribe(
-        (res) => {
+      .subscribe({
+        next: (res: any) => {
           console.log(res, 'res');
           this.snackbarService.showSuccess('Signup successful ' + res?.message);
           this.signUpForm.reset();
-          // this.navigateService.toLogin();
+          this.navigateService.toLogin();
         },
-        (err) => {
+        error: (err) => {
           console.log(err, 'res');
           this.snackbarService.showError('Signup failed: ' + err);
-        }
-      )
-      .add(() => (this.isSubmitting = false));
+        },
+      })
+      .add(() => {
+        this.isSubmitting = false;
+        this.spinnerService.hide();
+      });
   }
 }
 

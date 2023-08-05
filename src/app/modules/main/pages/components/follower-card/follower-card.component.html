@@ -22,23 +22,32 @@
   class="flex items-start p-3 bg-white border-b border-gray-200"
   [ngClass]="isFollowerActive ? '' : 'pointer-events-none opacity-50'"
 >
-  <div
-    class="basis-1/12 mr-3"
-  >
-   <a [routerLink]="['/users/', follower.id]">
-    <avatar [userName]="follower.username"></avatar>
-   </a>
+  <div class="basis-1/12 mr-3">
+    <a [routerLink]="['/users/', follower.id]">
+      <avatar [userName]="follower.username"></avatar>
+    </a>
   </div>
   <div class="basis-11/12">
     <div class="inline-flex space-x-3 mb-2 items-center">
       <p class="font-medium capitalize">{{ follower.username }}</p>
       <div class="inline-flex space-x-1 items-center">
-        <p class="font-medium">@{{ follower.email  }}</p>
-        <span class="w-2.5 h-2.5 rounded-full" [ngClass]="isFollowerActive ? 'bg-green-600' : 'bg-gray-300'"></span>
+        <p class="font-medium">{{ follower.email | cutAfterAt }}</p>
+        <span
+          class="w-2.5 h-2.5 rounded-full"
+          [ngClass]="isFollowerActive ? 'bg-green-600' : 'bg-gray-300'"
+        ></span>
       </div>
     </div>
     <div class="py-1">
-      <p class="font-light">Joined on: {{follower.join_date | date}} </p>
+      <div class="flex items-center space-x-2 justify-between">
+        <p class="font-light">Joined on: {{ follower.join_date | date }}</p>
+        <ng-container *ngIf="isFollowing">
+          <unfollow [userId]="follower.id"></unfollow>
+        </ng-container>
+        <ng-container *ngIf="!isFollowing">
+          <follow [userId]="follower.id"></follow>
+        </ng-container>
+      </div>
     </div>
   </div>
 </div>

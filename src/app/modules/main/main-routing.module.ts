@@ -8,6 +8,7 @@ import { MainComponent } from './main.component';
 import { FollowingUsersComponent } from './pages/following-users/following-users.component';
 import { UsersComponent } from './pages/users/users.component';
 import { UserDetailsComponent } from './pages/user-details/user-details.component';
+import { SearchComponent } from './pages/components/search/search.component';
 
 const routes: Routes = [
   {
@@ -22,12 +23,15 @@ const routes: Routes = [
         path: '',
         component: TimelineComponent,
         data: {
-          title: 'Home',
+          title: 'Timeline',
         },
       },
       {
         path: 'tweets',
         component: TweetsComponent,
+        data: {
+          title: 'Tweets',
+        },
       },
       {
         path: 'followers',
@@ -40,19 +44,29 @@ const routes: Routes = [
         path: 'followings',
         component: FollowingUsersComponent,
         data: {
-          title: 'followings',
+          title: 'Followings',
         },
       },
       {
         path: 'users',
         component: UsersComponent,
         data: {
-          title: 'users',
+          title: 'Users',
+        },
+      },
+      {
+        path: 'search',
+        component: SearchComponent,
+        data: {
+          title: 'Search',
         },
       },
       {
         path: 'users/:id',
         component: UserDetailsComponent,
+        data: {
+          title: 'User',
+        },
       },
     ],
   },

@@ -5,5 +5,5 @@
   // position: sticky;
   // position: -webkit-sticky; /* macOS/iOS Safari */
 
-  @apply sticky z-10 backdrop-blur-md top-0 w-full bg-white border-b border-gray-200
+  @apply sticky z-10 backdrop-blur-md top-0 w-full bg-white bg-opacity-50 border-b border-gray-200
 }

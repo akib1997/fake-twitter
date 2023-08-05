@@ -48,7 +48,8 @@ export class JwtInterceptor implements HttpInterceptor {
         let isError = (response as any)?.body?.error;
         console.log(response, 'response');
         if (isError) {
-          this.authService.removeToken();
+          console.warn(isError)
+          this.authService.logout();
           this.navigateService.toLogin();
           return null as any;
         }

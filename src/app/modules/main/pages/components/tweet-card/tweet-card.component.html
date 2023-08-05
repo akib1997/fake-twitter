@@ -18,9 +18,9 @@
       </div>
       <p class="font-light text-xs">{{ tweet.published | tweetTime }}</p>
     </div>
-    <div class="content py-1">
-      <p class="max-tweet-content- mb-">
-        {{ tweet.content | slice : 0 : 120 }}...
+    <div class="content  py-1">
+      <p class="break-all">
+        {{ tweet.content | removeWhiteSpace | slice : 0 : 120 }}...
       </p>
       <!-- <unfollow [userId]="tweet.user.id"></unfollow> -->
     </div>

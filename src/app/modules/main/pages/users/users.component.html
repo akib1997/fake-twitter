@@ -1,13 +1,33 @@
-<div *ngIf="pageLoading" class="w-full h-full flex items-center justify-center">
-  <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
-</div>
-
-<div *ngIf="!pageLoading" class="grid gap-4">
-  <ng-container *ngIf="users">
-    <ng-container *ngFor="let user of users">
-      <!-- <tweet-card [tweet]="tweet"></tweet-card> -->
-      <user-card [user]="user"></user-card>
-    </ng-container>
+<div
+  class="h-[calc(100vh-60px)] overflow-y-auto overflow-x-hidden custom-scrollbar border-t border-gray-200"
+  infiniteScroll
+  [infiniteScrollDistance]="2"
+  [infiniteScrollThrottle]="500"
+  (scrolled)="onScroll()"
+  [scrollWindow]="false"
+>
+  <ng-container *ngForEmpty="let user of users; else: skeleton">
+    <user-card [user]="user"></user-card>
   </ng-container>
+  <div
+    *ngIf="pageLoading"
+    class="w-full h-full flex items-center justify-center"
+  >
+    <mat-progress-spinner
+      mode="indeterminate"
+      strokeWidth="3"
+      diameter="50"
+      color="primary"
+    ></mat-progress-spinner>
+  </div>
+  <p
+    *ngIf="isEndOfList"
+    class="text-center capitalize font-medium text-gray-900 my-2"
+  >
+    You're end of list
+  </p>
 </div>
 
+<ng-template #skeleton>
+  <skeleton></skeleton>
+</ng-template>

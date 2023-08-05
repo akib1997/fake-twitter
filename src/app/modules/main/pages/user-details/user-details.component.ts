@@ -4,12 +4,12 @@ import { ActivatedRoute } from '@angular/router';
 import { IFollower } from '@app/models/follower.model';
 import { IFollowing } from '@app/models/following.model';
 import { ITweet } from '@app/models/tweet.model';
-import { UserService } from '@app/services/user/user.service';
+import { UserService } from '@modules/main/pages/services/user/user.service';
 
 @Component({
   selector: 'app-user-details',
   templateUrl: './user-details.component.html',
-  styleUrls: ['./user-details.component.css'],
+  styleUrls: ['./user-details.component.scss'],
 })
 export class UserDetailsComponent implements OnInit {
   pageLoading = false;
@@ -19,6 +19,11 @@ export class UserDetailsComponent implements OnInit {
   tweets: ITweet[];
   followers: IFollower[];
   followings: IFollowing[];
+  notFound = {
+    tweetsNotFound: false,
+    followersNotFound: false,
+    followingsNotFound: false
+  };
 
   constructor(
     private route: ActivatedRoute,
@@ -29,6 +34,11 @@ export class UserDetailsComponent implements OnInit {
     this.route.params.subscribe((params) => {
       this.userId = params['id'];
     });
+    this.route.queryParams.subscribe((params) => {
+      this.username = params['userName'];
+    });
+
+    this.userId && this.getTweets(this.userId);
   }
 
   tabChange(change: MatTabChangeEvent): void {
@@ -47,8 +57,9 @@ export class UserDetailsComponent implements OnInit {
     this.pageLoading = true;
     this.userService
       .getTweets(id)
-      .subscribe((followers) => {
-        this.tweets = followers.tweets;
+      .subscribe(({ tweets, count }) => {
+        this.notFound.tweetsNotFound = count === 0;
+        this.tweets = tweets;
       })
       .add(() => (this.pageLoading = false));
   }
@@ -57,8 +68,9 @@ export class UserDetailsComponent implements OnInit {
     this.pageLoading = true;
     this.userService
       .getFollowers(id)
-      .subscribe((followers) => {
-        this.followers = followers.followers;
+      .subscribe(({ followers, count }) => {
+        this.notFound.followersNotFound = count === 0;
+        this.followers = followers;
       })
       .add(() => (this.pageLoading = false));
   }
@@ -67,8 +79,9 @@ export class UserDetailsComponent implements OnInit {
     this.pageLoading = true;
     this.userService
       .getFollowings(id)
-      .subscribe((followers) => {
-        this.followings = followers.followings;
+      .subscribe(({ followings, count }) => {
+        this.notFound.followingsNotFound = count === 0;
+        this.followings = followings;
       })
       .add(() => (this.pageLoading = false));
   }

@@ -1,3 +1,13 @@
-<button mat-raised-button color="warn" (click)="unfollowUser(userId)">{{isUnFollowed ? 'Follow' : 'Unfollow'}} </button>
+<button mat-raised-button [color]="isUnFollowed ? 'primary': 'warn'" (click)="unfollowUser(userId)">
+
+ <div class="flex space-x-2 items-center">
+  <span class=""> {{isUnFollowed ? 'Follow' : 'Unfollow'}}</span>
+  <ng-container *ngIf="isButtonSubmitting">
+    <mat-icon><mat-spinner color="primary" diameter="20">
+    </mat-spinner></mat-icon>
+  </ng-container>
+ </div>
+
+</button>
 
 

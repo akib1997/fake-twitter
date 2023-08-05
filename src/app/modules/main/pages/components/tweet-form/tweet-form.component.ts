@@ -1,28 +1,33 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { ITeweetRequest } from '@app/models/user.model';
 import { MatDialogRef } from '@angular/material/dialog';
-import { TweetService } from '@modules/main/pages/services/tweet/tweet.service';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { ITeweetRequest } from '@app/models/user.model';
+import { SnackbarService } from '@app/services/snackbar/snackbar.service';
+import { SpinnerService } from '@app/services/spinner/spinner.service';
 import { markAllControlsAsDirty } from '@app/utilities/markAllControlsAsDirty';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { TweetService } from '@modules/main/pages/services/tweet/tweet.service';
 
 @Component({
   selector: 'tweet-form',
   templateUrl: './tweet-form.component.html',
-  styleUrls: ['./tweet-form.component.css'],
+  styleUrls: ['./tweet-form.component.scss'],
 })
 export class TweetFormComponent implements OnInit {
+  remainingChars = 160;
   tweetForm: FormGroup<TTweetForm>;
+
   constructor(
     private fb: FormBuilder,
     private tweetService: TweetService,
-    private snackBar: MatSnackBar,
-    private dialogRef: MatDialogRef<TweetFormComponent>
+    private dialogRef: MatDialogRef<TweetFormComponent>,
+    private spinnerService: SpinnerService,
+    private snackBar: SnackbarService,
   ) {}
 
   ngOnInit() {
@@ -35,22 +40,25 @@ export class TweetFormComponent implements OnInit {
       return;
     }
     const payload = this.tweetForm.value as ITeweetRequest;
+    this.spinnerService.show()
     this.tweetService
       .tweet(payload)
-      .subscribe(
-        (res) => {
-          this.snackBar.open(res.message, 'Dismiss', {
-            duration: 2000,
-            panelClass: ['success-toast'],
+      .subscribe({
+        next: (res) => {
+          this.snackBar.showSuccess(res.message, 'Dismiss', {
+            duration: 1000,
           });
-          this.dialogRef.close();
         },
-        (err) => {
-          this.dialogRef.close();
-        }
-      )
+        error: (err) => {
+          this.snackBar.showError(err, 'Dismiss', {
+            duration: 1000,
+          });
+        },
+      })
       .add(() => {
         this.dialogRef.close();
+        this.spinnerService.hide()
+
       });
   }
 
@@ -62,6 +70,10 @@ export class TweetFormComponent implements OnInit {
         Validators.minLength(10),
       ]),
     });
+
+    this.tweetForm.get('content')?.valueChanges.subscribe((data: string | null) => {
+      this.remainingChars = 160 - (data as string).length;
+    })
   }
 
   cancel() {

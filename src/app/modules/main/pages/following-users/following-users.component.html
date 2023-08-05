@@ -1,5 +1,5 @@
 <div
-  class="grid gap- h-[calc(100vh-110px)] overflow-y-auto overflow-x-hidden custom-scrollbar pt-4"
+  class="h-[calc(100vh-50px)] overflow-y-auto overflow-x-hidden custom-scrollbar pt-4"
   infiniteScroll
   [infiniteScrollDistance]="2"
   [infiniteScrollThrottle]="500"
@@ -7,7 +7,7 @@
   [scrollWindow]="false"
 >
   <ng-container *ngForEmpty="let following of followings; else: skeleton">
-    <follower-card [follower]="following"></follower-card>
+    <follower-card [follower]="following" [isFollowing]="true"></follower-card>
   </ng-container>
   <div
     *ngIf="pageLoading"

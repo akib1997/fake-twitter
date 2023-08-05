@@ -1,37 +1,80 @@
-<h6 class="text-center text-lg font-medium my-3"> User Details </h6>
-
-<mat-tab-group mat-stretch-tabs="false" mat-align-tabs="center" (selectedTabChange)="tabChange($event)">
-  <mat-tab [label]="tabLabels.Tweets">
-    <ng-container *ngIf="tweets && tweets.length > 0; else emptyDataTemplate">
-      <div *ngFor="let tweet of tweets" class="grid gap-4">
+<h6 class="text-center text-lg font-medium mb-3">
+  User Details {{ username }}
+</h6>
+<div
+  class="h-[calc(100vh-115px)] overflow-y-auto overflow-x-hidden custom-scrollbar border-t border-gray-200"
+>
+  <mat-tab-group
+    mat-stretch-tabs="false"
+    mat-align-tabs="center"
+    (selectedTabChange)="tabChange($event)"
+  >
+    <mat-tab [label]="tabLabels.Tweets">
+      <ng-container *ngForEmpty="let tweet of tweets; else: skeleton">
         <tweet-card [tweet]="tweet"></tweet-card>
-      </div>
-    </ng-container>
-  </mat-tab>
-
-  <mat-tab [label]="tabLabels.Followers">
-    <ng-container *ngIf="followers && followers.length > 0; else emptyDataTemplate">
-      <div *ngFor="let follower of followers" class="grid gap-4">
-        <follower-card [follower]="follower"></follower-card>
-      </div>
-    </ng-container>
-  </mat-tab>
-
-  <mat-tab [label]="tabLabels.Followings">
-    <ng-container *ngIf="!pageLoading">
-      <ng-container *ngIf="followings && followings.length > 0; else emptyDataTemplate">
-        <div *ngFor="let following of followings" class="grid gap-4">
-          <follower-card [follower]="following"></follower-card>
-        </div>
       </ng-container>
-    </ng-container>
-  </mat-tab>
-</mat-tab-group>
+    </mat-tab>
 
-<ng-template #emptyDataTemplate>
-  <p class="text-center font-medium text-red-500">No data available.</p>
+    <mat-tab [label]="tabLabels.Followers">
+      <ng-container *ngForEmpty="let follower of followers; else: skeleton">
+        <follower-card [follower]="follower"></follower-card>
+      </ng-container>
+    </mat-tab>
+
+    <mat-tab [label]="tabLabels.Followings">
+      <ng-container *ngForEmpty="let following of followings; else: skeleton">
+        <follower-card [follower]="following"></follower-card>
+      </ng-container>
+    </mat-tab>
+  </mat-tab-group>
+</div>
+
+<ng-template #skeleton>
+  <ng-container
+    *ngIf="
+      notFound.tweetsNotFound ||
+      notFound.followersNotFound ||
+      notFound.followingsNotFound; else hhh
+    "
+  >
+    <p class="text-lg text-center font-medium my-2">Not Found</p>
+  </ng-container>
+
+
 </ng-template>
 
-<div *ngIf="pageLoading" class="w-full h-full flex items-center justify-center">
-  <mat-progress-spinner mode="indeterminate" [strokeWidth]="3"></mat-progress-spinner>
+<ng-template #hhh>
+  <skeleton></skeleton>
+</ng-template>
+
+<div *ngIf="notFound.tweetsNotFound; else tweetsFound">
+  <ng-template #tweetsNotFound>
+    <p>Tweets Not Found</p>
+  </ng-template>
 </div>
+
+<div *ngIf="notFound.followersNotFound; else followersFound">
+  <ng-template #followersNotFound>
+    <p>Followers Not Found</p>
+  </ng-template>
+</div>
+
+<div *ngIf="notFound.followingsNotFound; else followingsFound">
+  <ng-template #followingsNotFound>
+    <p>Followings Not Found</p>
+  </ng-template>
+</div>
+
+<!-- Your other content goes here -->
+
+<ng-template #tweetsFound>
+  <!-- Render tweets here -->
+</ng-template>
+
+<ng-template #followersFound>
+  <!-- Render followers here -->
+</ng-template>
+
+<ng-template #followingsFound>
+  <!-- Render followings here -->
+</ng-template>

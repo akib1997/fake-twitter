@@ -25,7 +25,7 @@ import {MatMenuModule} from '@angular/material/menu';
     MatCardModule,
     MatDialogModule,
     MatToolbarModule,
-    MatMenuModule
+    MatMenuModule,
   ],
   exports: [
     CommonModule,

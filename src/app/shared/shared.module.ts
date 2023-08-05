@@ -6,26 +6,39 @@ import { CutAfterAtPipe } from './pipes/cutAfterAt.pipe';
 import { CustomForDirective } from './directive/customFor.directive';
 import { NgForEmpty } from './directive/ngForEmpty.directive';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { SpinnerComponent } from './components/spinner/spinner.component';
+import { RemoveWhiteSpacePipe } from './pipes/removeWhiteSpace.pipe';
 
 @NgModule({
   imports: [
     CommonModule,
-    TweetTimePipe,
-    StringToDatePipe,
-    CutAfterAtPipe,
+    MatProgressSpinnerModule,
     CustomForDirective,
     NgForEmpty,
 
     // Components
-    NotFoundComponent
-  ],
-  exports: [
-    CommonModule,
+    NotFoundComponent,
+
+    // Pipes
     TweetTimePipe,
     StringToDatePipe,
     CutAfterAtPipe,
+    RemoveWhiteSpacePipe,
+
+  ],
+  declarations: [SpinnerComponent],
+  exports: [
+    CommonModule,
     CustomForDirective,
-    NgForEmpty
+    NgForEmpty,
+    SpinnerComponent,
+
+     // Pipes
+     TweetTimePipe,
+     StringToDatePipe,
+     CutAfterAtPipe,
+     RemoveWhiteSpacePipe,
   ],
 })
 export class SharedModule {}

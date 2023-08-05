@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { IFolllowParams, IFollower, IUnFolllowParams } from '@app/models/follower.model';
-import { UserService } from '@app/services/user/user.service';
+import { UserService } from '@modules/main/pages/services/user/user.service';
 
 @Component({
   selector: 'follower-card',
@@ -10,6 +10,7 @@ import { UserService } from '@app/services/user/user.service';
 })
 export class FollowerCardComponent implements OnInit {
   @Input({ required: true }) follower: IFollower;
+  @Input({ required: false }) isFollowing: boolean;
   isFollowed: boolean;
 
   constructor(

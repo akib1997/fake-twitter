@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { PageTitleService } from './pages/services/page-title/page-title.service';
 
 @Component({
   selector: 'app-main',
@@ -7,14 +8,12 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./main.component.scss']
 })
 export class MainComponent implements OnInit {
-  title: string;
+
   constructor(
     private route:ActivatedRoute,
+    private pageTitleService: PageTitleService
   ) { }
 
-  ngOnInit() {
-    this.title = this.route.snapshot.data['title']
-    // console.log(this.route.snapshot.data, 'dddd')
-  }
+  ngOnInit() {}
 
 }

@@ -8,22 +8,29 @@
     </a>
   </div>
   <div class="basis-11/12">
-    <div class="inline-flex space-x-3 mb-2">
-      <p class="font-medium">{{ user.username | slice : 0 : 20 }}</p>
-      <p class="font-light">{{ user.email | cutAfterAt }}</p>
-      <p class="font-light">{{ user.join_date | date }}</p>
+    <div class="inline-flex mb-2 items-center">
+      <p class="font-medium mr-3">{{ user.username | slice : 0 : 20 }}</p>
+      <p class="font-light mr-2">{{ user.email | cutAfterAt }}</p>
+      <span
+        class="w-2.5 h-2.5 rounded-full"
+        [ngClass]="isUserActive ? 'bg-green-600' : 'bg-gray-300'"
+      ></span>
     </div>
-    <div class="flex justify-between items-center">
-      <p>{{ user.active }}</p>
-      <div class="d">
-        <!-- <follow [userId]="user.id"></follow> -->
+    <div class="content">
+      <div class="font-light flex space-x-2 items-center mb-3">
+        <span class="font-medium">Joined:</span>
+        <span>{{ user.join_date | date : "medium" }}</span>
+      </div>
+      <div class="flex justify-end">
         <button
-          mat-stroked-button
-          [routerLink]="['/users', user.id]"
-          routerLinkActive="router-link-active"
-        >
-          Details
-        </button>
+        mat-stroked-button
+        color="primary"
+        [routerLink]="['/users', user.id]"
+        routerLinkActive="router-link-active"
+        [queryParams]="{ userName: user.username }"
+      >
+        Details
+      </button>
       </div>
     </div>
   </div>

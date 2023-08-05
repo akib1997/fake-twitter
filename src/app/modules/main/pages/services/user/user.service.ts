@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IFollowResponse, IUnFollowResponse } from '@app/models/common.model';
 import { IFolllowParams, IUnFolllowParams } from '@app/models/follower.model';
@@ -7,25 +7,23 @@ import {
   IPaginateUserFollowers,
   IPaginateUserFollowings,
   IPaginateUserTweets,
+  IUsersParams,
 } from '@app/models/user.model';
 import { apiConfig } from '@config/api.config';
-import { environment } from '@env';
 import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  private readonly apiUrl = `${environment.apiUrl}${
-    environment.version ? `/${environment.version}` : ''
-  }`;
-
   constructor(private http: HttpClient) {}
 
-  getUsers(): Observable<IPaginateUser> {
+  getUsers(paginateParams?: IUsersParams): Observable<IPaginateUser> {
     const endpoint = 'users';
     const apiUrl = apiConfig(endpoint);
-    return this.http.get<IPaginateUser>(apiUrl);
+    const { page, size } = paginateParams!;
+    const params = new HttpParams().set('page', page).set('size', size);
+    return this.http.get<IPaginateUser>(apiUrl, { params });
   }
 
   getTweets(id: number): Observable<IPaginateUserTweets> {
