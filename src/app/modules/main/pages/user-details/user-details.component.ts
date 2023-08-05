@@ -4,8 +4,9 @@ import { ActivatedRoute } from '@angular/router';
 import { IFollower } from '@app/models/follower.model';
 import { IFollowing } from '@app/models/following.model';
 import { ITweet } from '@app/models/tweet.model';
+import { AutoUnsubscribe } from '@app/utilities/autoUnsubscribe';
 import { UserService } from '@modules/main/pages/services/user/user.service';
-
+@AutoUnsubscribe()
 @Component({
   selector: 'app-user-details',
   templateUrl: './user-details.component.html',

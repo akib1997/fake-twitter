@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ITweet, ITweetParams } from '@app/models/tweet.model';
+import { AutoUnsubscribe } from '@app/utilities/autoUnsubscribe';
 import { TweetService } from '@modules/main/pages/services/tweet/tweet.service';
-
+@AutoUnsubscribe()
 @Component({
   selector: 'app-tweets',
   templateUrl: './tweets.component.html',

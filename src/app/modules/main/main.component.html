@@ -1,15 +1,14 @@
 <!-- <app-header></app-header> -->
-<main class="grid grid-cols-8 mx-10">
+<main class="grid grid-cols-9 max-w-5xl w-full mx-auto">
   <!-- sidebar   -->
   <div class="col-span-2">
     <sidebar class="w-full block"></sidebar>
   </div>
-  <div class="col-span-3">
-    <div
-      class="border-l border-r border-gray-200 h-screen relative overscroll-x-none overflow-y-auto custom-scrollbarr"
-    >
+  <div class="col-span-4">
+    <h6 class="sticky  backdrop-blur-md top-0 w-full bg-white bg-opacity-50 border-b border-gray-100">
+      <p class="text-center text-lg p-3">Blaze your glory!</p>
+    </h6>
     <router-outlet></router-outlet>
-    </div>
   </div>
   <div class="search col-span-3">
     <search></search>

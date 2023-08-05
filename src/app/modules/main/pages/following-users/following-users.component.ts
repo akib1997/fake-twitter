@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { IFollowing, IFollowingParams } from '@app/models/following.model';
+import { AutoUnsubscribe } from '@app/utilities/autoUnsubscribe';
 import { FollowingsService } from '@modules/main/pages/services/followings/followings.service';
-
+@AutoUnsubscribe()
 @Component({
   selector: 'following-users',
   templateUrl: './following-users.component.html',

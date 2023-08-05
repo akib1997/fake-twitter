@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { IUser, IUsersParams } from '@app/models/user.model';
+import { AutoUnsubscribe } from '@app/utilities/autoUnsubscribe';
 import { UserService } from '@modules/main/pages/services/user/user.service';
-
+@AutoUnsubscribe()
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',

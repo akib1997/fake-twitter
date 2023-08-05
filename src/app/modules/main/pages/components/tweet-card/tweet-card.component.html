@@ -5,7 +5,7 @@
   <div
     class="basis-1/12 mr-3"
   >
-   <a [routerLink]="['/users/', tweet.user.id]">
+   <a [routerLink]="['/users/', tweet.user.id]"  [queryParams]="{ userName: tweet.user.username }">
     <avatar [userName]="tweet.user.username"></avatar>
    </a>
   </div>

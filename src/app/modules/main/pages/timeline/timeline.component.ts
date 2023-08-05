@@ -6,14 +6,13 @@ import { AutoUnsubscribe } from '@utilities/autoUnsubscribe';
 import { fadeInAnimation } from '@utilities/fadeInAnimation';
 import { FollowingsService } from '@modules/main/pages/services/followings/followings.service';
 import { TimelineService } from '@modules/main/pages/services/timeline/timeline.service';
-
+@AutoUnsubscribe()
 @Component({
   selector: 'app-timeline',
   templateUrl: './timeline.component.html',
   styleUrls: ['./timeline.component.scss'],
   animations: [fadeInAnimation],
 })
-@AutoUnsubscribe()
 export class TimelineComponent implements OnInit {
   pageLoading = false;
   timelines: ITimeline[] = [];
