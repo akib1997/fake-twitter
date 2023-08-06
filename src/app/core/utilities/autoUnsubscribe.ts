@@ -6,7 +6,7 @@ export function AutoUnsubscribe() {
       for (const prop in this) {
         const property = this[prop];
 
-        if (typeof property.subscribe === 'function') {
+        if (typeof property?.subscribe === 'function') {
           property.unsubscribe();
         }
       }

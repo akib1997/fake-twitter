@@ -7,3 +7,4 @@ export const apiConfig = (endpoint: string): string => {
 
   return `${baseUrl}/${endpoint}`;
 };
+

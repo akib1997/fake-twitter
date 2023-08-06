@@ -1,1 +1,10 @@
-<button mat-raised-button color="primary" (click)="openTweetDialog()">Tweet</button>
+<div class="md:block hidden">
+  <button mat-raised-button color="primary" (click)="openTweetDialog()">
+    Tweet
+  </button>
+</div>
+<div class="md:hidden block">
+  <button mat-icon-button color="primary" (click)="openTweetDialog()">
+    <mat-icon class="">launch</mat-icon>
+  </button>
+</div>

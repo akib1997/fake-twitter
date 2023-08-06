@@ -7,14 +7,19 @@ import { LoadingService } from '@app/services/loading/loading.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  loading = false;
 
+  preLoader = false
   constructor(
     private loadingService: LoadingService,
   ) {}
   ngOnInit(): void {
-    this.loadingService.loading$.subscribe((isLoading) => {
-      this.loading = isLoading;
-    });
+
+  }
+
+  onActivate(): void {
+    this.preLoader = true;
+    setTimeout(() => {
+      this.preLoader = false;
+    }, 1000);
   }
 }

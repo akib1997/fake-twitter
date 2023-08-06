@@ -1,41 +1,22 @@
 <!-- <app-header></app-header> -->
-<main class="grid grid-cols-9 max-w-5xl w-full mx-auto">
+<main class="grid md:grid-cols-9 max-w-5xl w-full mx-auto">
   <!-- sidebar   -->
-  <div class="col-span-2">
-    <sidebar class="w-full block"></sidebar>
+  <div class="frhfsa md:col-span-2">
+    <div class="md:block hidden">
+      <sidebar class="w-full block"></sidebar>
+    </div>
   </div>
-  <div class="col-span-4">
-    <h6 class="sticky  backdrop-blur-md top-0 w-full bg-white bg-opacity-50 border-b border-gray-100">
-      <p class="text-center text-lg p-3">Blaze your glory!</p>
-    </h6>
+  <div class="frhfsa md:col-span-4">
+    <app-header></app-header>
     <router-outlet></router-outlet>
   </div>
-  <div class="search col-span-3">
-    <search></search>
+  <div class="frhfsa md:col-span-3">
+    <div class="md:block hidden">
+      <search></search>
+    </div>
+    <div class="md:hidden block">
+      <bottom-navigation></bottom-navigation>
+    </div>
   </div>
 </main>
-<!-- <div class="fixed right-5 bottom-5 z-20">
-  <tweet-button></tweet-button>
-</div> -->
-<!-- <mat-drawer-container class="example-container" [hasBackdrop]="hasBackdrop.value">
-  <mat-drawer #drawer [mode]="mode.value">I'm a drawer</mat-drawer>
-  <mat-drawer-content>
-    <mat-form-field>
-      <mat-label>Sidenav mode</mat-label>
-      <mat-select #mode value="side">
-        <mat-option value="side">Side</mat-option>
-        <mat-option value="over">Over</mat-option>
-        <mat-option value="push">Push</mat-option>
-      </mat-select>
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>Has backdrop</mat-label>
-      <mat-select #hasBackdrop>
-        <mat-option>Unset</mat-option>
-        <mat-option [value]="true">True</mat-option>
-        <mat-option [value]="false">False</mat-option>
-      </mat-select>
-    </mat-form-field>
-    <button mat-raised-button (click)="drawer.toggle()">Toggle drawer</button>
-  </mat-drawer-content>
-</mat-drawer-container> -->
+

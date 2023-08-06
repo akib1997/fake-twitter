@@ -1,13 +1,8 @@
-<!-- <h1 class="text-3xl font-mono text-teal-700">Hello World!</h1> -->
 
-<!-- <div class="w-full flex items-center bg-white">
-  <div class="max-w-xl w-full">
-    <router-outlet></router-outlet>
+<router-outlet (activate)="onActivate()"></router-outlet>
+
+<ng-container *ngIf="preLoader">
+  <div class="fixed inset-0 z-20 flex items-center justify-center bg-white">
+    <img src="./assets/twitter-x.svg" alt="twitter" loading="lazy" class="w-40 h-40">
   </div>
-</div> -->
-<router-outlet></router-outlet>
-<!-- <mat-progress-spinner
-  *ngIf="loading"
-  mode="indeterminate"
-  diameter="50"
-></mat-progress-spinner> -->
+</ng-container>

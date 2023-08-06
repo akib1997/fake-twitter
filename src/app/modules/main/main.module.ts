@@ -31,6 +31,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { ScrollInfiniteComponent } from './pages/components/scroll-infinite/scroll-infinite.component';
 import { SkeletonComponent } from './pages/components/skeleton/skeleton.component';
 import { AvatarComponent } from './pages/components/avatar/avatar.component';
+import { BottomNavigationComponent } from './pages/components/bottom-navigation/bottom-navigation.component';
 
 @NgModule({
   imports: [
@@ -66,7 +67,8 @@ import { AvatarComponent } from './pages/components/avatar/avatar.component';
     HeaderComponent,
     SidebarComponent,
     ScrollInfiniteComponent,
-    SkeletonComponent
+    SkeletonComponent,
+    BottomNavigationComponent
   ],
 })
 export class MainModule {}
